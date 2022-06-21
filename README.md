@@ -15,4 +15,4 @@ Vin -3.3V
 GND - GND
 
 
-then upload the program to the ESP32.
+## Then upload the program to the ESP32.
