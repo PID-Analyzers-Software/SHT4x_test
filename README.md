@@ -16,3 +16,10 @@ GND - GND
 
 
 ## Then upload the program to the ESP32.
+
+
+## w/BT&Display Version
+
+Find BT on your PC as "ESP32-Test"
+
+Use Termite to connect and read the data.
