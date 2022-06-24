@@ -22,6 +22,17 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+#if !defined(CONFIG_BT_SPP_ENABLED)
+#error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
+#endif
+
+BluetoothSerial SerialBT;
 
 #include "Adafruit_SHT4x.h"
 
@@ -40,6 +51,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void setup() {
   Serial.begin(115200);
+  SerialBT.begin("ESP32test"); //Bluetooth device name
+
   Serial.println("Adafruit SHT4x test");
   if (! sht4.begin()) {
     Serial.println("Couldn't find SHT4x");
@@ -115,13 +128,16 @@ void loop() {
 
   display.setTextSize(2);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
-  display.setCursor(5, 5);     // Start at top-left corner
+  display.setCursor(5, 10);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
   display.write(("T: " + String(temp.temperature) + " C").c_str());
   display.setCursor(5, 40);     // Start at top-left corner
   display.write(("RH:" + String(humidity.relative_humidity) + " %").c_str());
   display.display();
-  delay(250);
+  SerialBT.print(("T: " + String(temp.temperature) + " C, ").c_str());
+  SerialBT.print(("RH:" + String(humidity.relative_humidity) + " %, \n").c_str());
+
+  delay(1000);
 
 }
 
