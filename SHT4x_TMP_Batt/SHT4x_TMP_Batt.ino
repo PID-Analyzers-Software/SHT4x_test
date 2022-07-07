@@ -12,7 +12,7 @@
 #error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
 #endif
 #include <movingAvg.h>                  // https://github.com/JChristensen/movingAvg
-movingAvg avgTemp(10);                  // define the moving average object
+movingAvg avgTemp(15);                  // define the moving average object
 
 BluetoothSerial SerialBT;
 
@@ -20,15 +20,12 @@ BluetoothSerial SerialBT;
 
 Adafruit_SHT4x sht4 = Adafruit_SHT4x();
 
-
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
 #define OLED_RESET     4 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
-#define NUMFLAKES     10 // Number of snowflakes in the animation example
 
 float tem, hum;
 
@@ -100,8 +97,7 @@ void loop() {
   sht4.getEvent(&humidity, &temp);// populate temp and humidity objects with fresh data
   timestamp = millis() - timestamp;
 
-  Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
-  Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
+
 
   Serial.print("Read duration (ms): ");
   Serial.println(timestamp);
@@ -109,17 +105,22 @@ void loop() {
   display.clearDisplay();
   tem = temp.temperature;
   hum = humidity.relative_humidity;
-
-  float T_temp = (analogRead(2) * (3.3 / 4095) * 1000 - 500) / 10;
-  float avg = avgTemp.reading(T_temp);
-  float batt = (analogRead(4)/409);
+  int temp_a = analogRead(2);
+  float T_temp = (temp_a * (3.3 / 4095) * 1000 - 500);
+  float avg = avgTemp.reading(T_temp)/10.0;
+  int batt_a = analogRead(4);
+  float batt = (batt_a/409);
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
-
+  Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
+  Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
+  Serial.print("TMP: ");Serial.print(avg);Serial.println(" C.");
+  Serial.print("Battery: ");Serial.print(batt);Serial.println("%");
+  
   display.setCursor(5 ,5);     // Start at top-left corner
-  display.write(("Bat: " + String(batt, 1) + " %").c_str());
+  display.write(("Bat: " + String(batt, 0) + " %").c_str());
   display.setCursor(5, 20);     // Start at top-left corner
-  display.write(("TMP: " + String(avg+8, 1) + " C").c_str());
+  display.write(("TMP: " + String(avg+6, 1) + " C").c_str());
   display.setCursor(5, 35);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
   display.write(("T: " + String(tem, 1) + " C").c_str());
