@@ -32,7 +32,7 @@ float tem, hum;
 void setup() {
   Serial.begin(115200);
   SerialBT.begin("ESP32test"); //Bluetooth device name
-    avgTemp.begin();
+  avgTemp.begin();
 
   Serial.println("Adafruit SHT4x test");
   if (! sht4.begin()) {
@@ -107,20 +107,23 @@ void loop() {
   hum = humidity.relative_humidity;
   int temp_a = analogRead(2);
   float T_temp = (temp_a * (3.3 / 4095) * 1000 - 500);
-  float avg = avgTemp.reading(T_temp)/10.0;
+  float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = analogRead(4);
-  float batt = (batt_a/409);
+  int batt_b = batt_a *3300/4095;
+  float batt = (batt_a / 409);
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
   Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
-  Serial.print("TMP: ");Serial.print(avg);Serial.println(" C.");
-  Serial.print("Battery: ");Serial.print(batt);Serial.println("%");
-  
-  display.setCursor(5 ,5);     // Start at top-left corner
+  Serial.print("TMP: "); Serial.print(avg); Serial.println(" C.");
+  Serial.print("Battery: "); Serial.print(batt); Serial.println("%");
+
+  display.setCursor(5 , 5);    // Start at top-left corner
   display.write(("Bat: " + String(batt, 0) + " %").c_str());
+  display.setCursor(70 , 5);    // Start at top-left corner
+  display.write((String(batt_b) + " mV").c_str());
   display.setCursor(5, 20);     // Start at top-left corner
-  display.write(("TMP: " + String(avg+6, 1) + " C").c_str());
+  display.write(("TMP: " + String(avg + 6, 1) + " C").c_str());
   display.setCursor(5, 35);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
   display.write(("T: " + String(tem, 1) + " C").c_str());
