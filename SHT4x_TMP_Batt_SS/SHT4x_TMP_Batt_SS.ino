@@ -106,7 +106,7 @@ void loop() {
   tem = temp.temperature;
   hum = humidity.relative_humidity;
   int temp_a = analogRead(2);
-  float T_temp = ((temp_a * (3.3 / 4095) * 1000)*0.1135-39.41)*10;
+  float T_temp = ((temp_a * (3.3 / 4095) * 1000)*0.02902- 3.55624)*10;
   float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = analogRead(4);
   int batt_b = batt_a*3300/4095;
