@@ -110,7 +110,7 @@ void loop() {
   float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = analogRead(4);
   int batt_b = batt_a*3300/4095;
-  float batt = (batt_b-2000)/13;
+  float batt = (batt_b-1650)/13.5;
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
