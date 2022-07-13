@@ -116,7 +116,7 @@ void loop() {
   display.setTextColor(SSD1306_WHITE); // Draw white text
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
   Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
-  Serial.print("TMP: "); Serial.print(avg); Serial.println(" C.");
+  Serial.print("TMP: "); Serial.print(temp_a); Serial.println(" mV.");
   Serial.print("Battery: "); Serial.print(batt); Serial.println("%");
 
   display.setCursor(5 , 5);    // Start at top-left corner
