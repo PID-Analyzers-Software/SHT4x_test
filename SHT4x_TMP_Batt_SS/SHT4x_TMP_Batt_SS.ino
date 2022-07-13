@@ -15,7 +15,8 @@
 movingAvg avgTemp(15);                  // define the moving average object
 
 BluetoothSerial SerialBT;
-
+int maxV = 2930;
+int minV = 1721;
 #include "Adafruit_SHT4x.h"
 
 Adafruit_SHT4x sht4 = Adafruit_SHT4x();
@@ -106,11 +107,11 @@ void loop() {
   tem = temp.temperature;
   hum = humidity.relative_humidity;
   int temp_a = analogRead(2);
-  float T_temp = ((temp_a * (3.3 / 4095) * 1000)*0.02902- 3.55624)*10;
+  float T_temp = ((temp_a * (3.3 / 4095) * 1000)*0.1135-39.41)*10;
   float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = analogRead(4);
   int batt_b = batt_a*3300/4095;
-  float batt = (batt_b-1650)/13.5;
+  float batt = (batt_b-minV)/((maxV-minV)/100);
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
