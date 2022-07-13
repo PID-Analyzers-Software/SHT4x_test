@@ -124,7 +124,7 @@ void loop() {
   display.setCursor(70 , 5);    // Start at top-left corner
   display.write((String(batt_b) + " mV").c_str());
   display.setCursor(5, 20);     // Start at top-left corner
-  display.write(("TMP: " + String(avg, 1) + " C").c_str());
+  display.write(("TMP: " + String(temp_a) + " C").c_str());
   display.setCursor(5, 35);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
   display.write(("T: " + String(tem, 1) + " C").c_str());
