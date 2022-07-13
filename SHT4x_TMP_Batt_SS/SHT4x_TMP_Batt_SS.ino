@@ -113,12 +113,15 @@ void loop() {
   int batt_b = batt_a*3300/4095;
   float batt = (batt_b-minV)/((maxV-minV)/100);
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
-  display.setTextColor(SSD1306_WHITE); // Draw white text
+  
+  //Serial Monitor
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
   Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
   Serial.print("TMP: "); Serial.print(temp_a); Serial.println(" mV.");
   Serial.print("Battery: "); Serial.print(batt); Serial.println("%");
 
+  //Display
+   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(5 , 5);    // Start at top-left corner
   display.write(("Bat: " + String(batt, 0) + " %").c_str());
   display.setCursor(70 , 5);    // Start at top-left corner
@@ -131,6 +134,8 @@ void loop() {
   display.setCursor(5, 50);     // Start at top-left corner
   display.write(("RH:" + String(hum, 1) + " %").c_str());
   display.display();
+  
+  //BT
   SerialBT.print(("T: " + String(avg, 1) + " C, ").c_str());
   SerialBT.print(("RH:" + String(hum, 1) + " %, \n").c_str());
 
