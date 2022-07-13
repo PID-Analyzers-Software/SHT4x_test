@@ -112,6 +112,12 @@ void loop() {
   int batt_a = analogRead(4);
   int batt_b = batt_a*3300/4095;
   float batt = (batt_b-minV)/((maxV-minV)/100);
+  if (batt > 100){
+    batt = 100;
+  }
+   if (batt < 0){
+    batt = 0;
+  }
   display.setTextSize(0.5);      // Normal 1:1 pixel scale
   
   //Serial Monitor
