@@ -15,7 +15,7 @@
 movingAvg avgTemp(15);                  // define the moving average object
 
 BluetoothSerial SerialBT;
-int maxV = 3020;
+int maxV = 2840;
 int minV = 1710;
 #include "Adafruit_SHT4x.h"
 
