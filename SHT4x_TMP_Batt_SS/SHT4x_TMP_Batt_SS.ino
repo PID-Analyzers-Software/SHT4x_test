@@ -16,8 +16,8 @@ movingAvg avgTemp(10);                  // define the moving average object
 movingAvg avgbatt(10);                  // define the moving average object
 
 BluetoothSerial SerialBT;
-int maxV = 3900    / 1.333;
-int minV = 2279    / 1.333;
+int maxV = 2840;
+int minV = 1710;
 #include "Adafruit_SHT4x.h"
 
 //Adafruit_SHT4x sht4 = Adafruit_SHT4x();
@@ -96,14 +96,14 @@ void loop() {
 //  Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
   Serial.print("TMST: "); Serial.print(avg); Serial.print(" C.");Serial.print(" V_T: "); Serial.print(temp_a * 3.3 / 4.095); Serial.println(" mV");
   Serial.print("T_AnalogRead: "); Serial.print(temp_a); Serial.println(" count");
-  Serial.print("Battery: "); Serial.print(batt); Serial.print("%");Serial.print(" V_Batt: "); Serial.print(batt_b); Serial.println(" mV");
+  Serial.print("Battery: "); Serial.print(batt); Serial.print("%");Serial.print(" V_Batt: "); Serial.print(batt_b*1.333); Serial.println(" mV");
   Serial.println(" ");
   //Display
   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(5 , 5);    // Start at top-left corner
   display.write(("Bat: " + String(batt, 0) + " %").c_str());
   display.setCursor(70 , 5);    // Start at top-left corner
-  display.write((String(batt_b) + " mV").c_str());
+  display.write((String(batt_b*1.333) + " mV").c_str());
   display.setCursor(5, 20);     // Start at top-left corner
   display.write(("TMP: " + String(avg) + " C").c_str());
   display.setCursor(5, 35);     // Start at top-left corner
