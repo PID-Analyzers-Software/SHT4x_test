@@ -79,7 +79,7 @@ void loop() {
 //  hum = humidity.relative_humidity;
   int temp_a = analogRead(2)*3.3/4.095;
   //float T_temp = (temp_a * 0.02614 - 1.31345) * 10;
-  float T_temp = (0.0001*temp_a^2 + 0.0178 * temp_a - 13.67)*10;
+  float T_temp = (0.0001*temp_a*temp_a + 0.0178 * temp_a - 13.67)*10;
   float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = avgbatt.reading(analogRead(4));
   int batt_b = batt_a * 3300 / 4095;
