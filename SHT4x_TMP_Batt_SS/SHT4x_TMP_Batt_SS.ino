@@ -77,8 +77,9 @@ void loop() {
   display.clearDisplay();
 //  tem = temp.temperature;
 //  hum = humidity.relative_humidity;
-  int temp_a = analogRead(2);
-  float T_temp = (temp_a * 0.02614 - 1.31345) * 10;
+  int temp_a = analogRead(2)*3.3/4.095;
+  //float T_temp = (temp_a * 0.02614 - 1.31345) * 10;
+  float T_temp = (0.0001*temp_a^2 + 0.0178 * temp_a - 13.67)*10;
   float avg = avgTemp.reading(T_temp) / 10.0;
   int batt_a = avgbatt.reading(analogRead(4));
   int batt_b = batt_a * 3300 / 4095;
@@ -94,8 +95,8 @@ void loop() {
   //Serial Monitor
 //  Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
 //  Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
-  Serial.print("ATC: "); Serial.print(avg); Serial.print(" C.");Serial.print(" V_T: "); Serial.print(temp_a * 3.3 / 4.095); Serial.println(" mV");
-  Serial.print("ATC_AnalogRead: "); Serial.print(temp_a); Serial.println(" count");
+  Serial.print("TMST: "); Serial.print(avg); Serial.print(" C.");Serial.print(" V_T: "); Serial.print(temp_a * 3.3 / 4.095); Serial.println(" mV");
+  Serial.print("T_AnalogRead: "); Serial.print(temp_a); Serial.println(" count");
   Serial.print("Battery: "); Serial.print(batt); Serial.print("%");Serial.print(" V_Batt: "); Serial.print(batt_b*1.333); Serial.println(" mV");
   Serial.println(" ");
   //Display
@@ -105,7 +106,7 @@ void loop() {
   display.setCursor(70 , 5);    // Start at top-left corner
   display.write((String(batt_b*1.333) + " mV").c_str());
   display.setCursor(5, 20);     // Start at top-left corner
-  display.write(("ATC: " + String(avg) + " C").c_str());
+  display.write(("TMP: " + String(avg) + " C").c_str());
   display.setCursor(5, 35);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
 //  display.write(("T: " + String(tem, 1) + " C").c_str());
