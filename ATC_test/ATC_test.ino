@@ -95,7 +95,8 @@ void loop() {
   //Serial Monitor
 //  Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
 //  Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
-  Serial.print("ATC: "); Serial.print(avg); Serial.print(" C.");Serial.print(" V_T: "); Serial.print(temp_a * 3.3 / 4.095); Serial.println(" mV");
+  Serial.print("ATC: "); Serial.print(avg); Serial.println(" C.");
+  Serial.print(" ATC_V: "); Serial.print(temp_a * 3.3 / 4.095); Serial.println(" mV");
   Serial.print("ATC_AnalogRead: "); Serial.print(temp_a); Serial.println(" count");
   Serial.print("Battery: "); Serial.print(batt); Serial.print("%");Serial.print(" V_Batt: "); Serial.print(batt_b*1.333); Serial.println(" mV");
   Serial.println(" ");
