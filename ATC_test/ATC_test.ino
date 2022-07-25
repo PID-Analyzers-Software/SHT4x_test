@@ -109,7 +109,7 @@ void loop() {
   display.setCursor(5, 20);     // Start at top-left corner
   display.write(("ATC: " + String(avg) + " C").c_str());
   display.setCursor(5, 40);     // Start at top-left corner
-    display.write(("ATC: " + String(temp_a * 3.3 / 4.095) + " mV").c_str());
+  display.write(("V_ATC: " + String(temp_a * 3.3 / 4.095) + " mV").c_str());
 
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
 //  display.write(("T: " + String(tem, 1) + " C").c_str());
