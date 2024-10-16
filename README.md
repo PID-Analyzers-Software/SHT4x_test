@@ -1,5 +1,7 @@
 # ESP32 SHT4x Sensor with OLED and Bluetooth
 
+<img width="635" alt="image" src="https://github.com/user-attachments/assets/61356d3c-23c8-42e2-a117-b96ad7533eb7">
+
 Test of SHT4x temperature and humidity sensor, display the readings on an SSD1306 OLED screen, and transmit the data via Bluetooth. It also reads the battery voltage from analog pin 4 and displays it on the OLED screen.
 
 ## Features
