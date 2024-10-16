@@ -5,7 +5,7 @@
 
 // Pin allocation and settings
 Adafruit_SHT4x sht4x = Adafruit_SHT4x();
-SSD1306 display(0x3C, 23, 22); // SDA 23, SCL 22 for I2C
+SSD1306 display(0x3C, 21, 22); // SDA 21, SCL 22 for I2C
 
 BluetoothSerial ESP_BT; // Create a BluetoothSerial object
 
@@ -14,6 +14,9 @@ const int batteryPin = 4; // Battery reading from analog pin 4
 void setup() {
   Serial.begin(115200);
   Serial.println("SHT4x and SSD1306 with Bluetooth & Battery Reading Test");
+
+  Wire.begin(21, 22); // Initialize I2C with SDA on 21, SCL on 22
+
 
   // Initialize Bluetooth
   ESP_BT.begin("ESP32_SHT4x"); // Bluetooth device name
@@ -61,7 +64,7 @@ void loop() {
     display.drawString(90, 0, "BLE");  // Display "BLE" at the top-right corner
   }
 
-  display.drawString(0, 16, "Temp.: " + String(temp.temperature) + " C");
+  display.drawString(0, 16, "Temp: " + String(temp.temperature) + " C");
   display.drawString(0, 32, "Humidity: " + String(humidity.relative_humidity) + " %");
   display.drawString(0, 48, "Battery: " + String(batteryVoltage, 2) + " V");
   display.display();
