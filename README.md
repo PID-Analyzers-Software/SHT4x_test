@@ -1,25 +1,28 @@
-# SHT4x_test
+# ESP32 SHT4x Sensor with OLED and Bluetooth
+
+Test of SHT4x temperature and humidity sensor, display the readings on an SSD1306 OLED screen, and transmit the data via Bluetooth. It also reads the battery voltage from analog pin 4 and displays it on the OLED screen.
+
+## Features
+
+- Reads temperature and humidity data from the SHT4x sensor.
+- Displays sensor data on the SSD1306 OLED screen.
+- Transmits sensor data via Bluetooth.
+- Monitors and displays battery voltage from analog pin 4.
+- Displays a "BLE" label at the top-right corner of the OLED if a Bluetooth client is connected.
 
 
-## In Arduino Library Management, install the following package:
-<img width="481" alt="image" src="https://user-images.githubusercontent.com/26637782/174850025-8e8eea1d-d0b8-4e52-9f2b-de953a4ff346.png">
+## Pin Configuration
 
-## Connect the sensor to the ESP32 as following:
+| Component            | Pin          |
+|----------------------|--------------|
+| SHT4x Sensor (I2C)   | SDA: 23, SCL: 22 |
+| SSD1306 Display (I2C) | SDA: 23, SCL: 22 |
+| Battery Voltage       | Analog Pin 4 |
+| Bluetooth             | Built-in on ESP32 |
 
-D21 - SDA
+## Libraries Required
 
-D22 - SCL
-
-Vin -3.3V
-
-GND - GND
-
-
-## Then upload the program to the ESP32.
-
-
-## w/BT&Display Version
-
-Find BT on your PC as "ESP32-Test"
-
-Use Termite to connect and read the data.
+- **Adafruit SHT4x Library**: For reading data from the SHT4x sensor.
+- **SSD1306**: For handling the SSD1306 OLED display.
+- **BluetoothSerial**: For enabling Bluetooth communication.
+- **Wire**: For I2C communication.
